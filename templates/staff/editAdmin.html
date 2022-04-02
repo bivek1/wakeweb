@@ -1,0 +1,46 @@
+{% extends 'manager/dashboard.html' %}
+
+{% block title %}
+    Edit {{blog.username}}
+{% endblock title %}
+
+
+{% block subcontent %}
+    
+    {% if messages %}
+        {% for i in messages  %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{i}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        
+    {% endif %}
+        
+    <div class="d-flex p-2" style="justify-content: space-between;">   
+        <h5>Update {{blog.username}}</h5> 
+        <a href="{%url 'manager:addAdmin'%}">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="fa fa-left-arrow"></i>
+                Back
+            </button>
+        </a>
+        
+    </div>
+    <!-- Form -->
+    <div class="formBox p-3">
+        <form action="" method="post">
+          {{form}}
+          {{form.media}}
+          {% csrf_token %}
+          <button class="btn btn-primary w-100" type="submit">
+              <i class="fa fa-save"></i> Update Admin
+          </button>
+        </form>
+          
+    </div>
+    <!-- EndForm -->
+         
+{% endblock subcontent %}
+    
+    

@@ -1,0 +1,78 @@
+{% extends 'manager/dashboard.html' %}
+
+{% block title %}
+    Search Result
+{% endblock title %}
+
+
+{% block subcontent %}
+    
+    {% if messages %}
+        {% for i in messages  %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{i}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        
+    {% endif %}
+        
+    <div class="d-flex p-2" style="justify-content: space-between;">   
+        <h5>Search Result.....</h5> 
+     
+    </div>
+    
+    {% if blog %}
+        {% for i in blog %}  
+        <div class="col-12 col-md-6 mt-3">   
+            <a href="{%url 'staff:updateBlog' i.id%}">
+                <div class="blogbox">
+                    <small>{{i.date_added}}</small>
+                    <h5>{{i.title|truncatewords:8}}</h5>
+                    <div>
+                        {{i.description|safe|truncatewords:10}}
+                    </div>
+                    <hr>
+                    <div class="blogMenu">
+                        <i class="fa fa-edit p-2"></i>
+                        <a data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}">
+                            <i class="fa fa-trash p-2"></i>
+                        </a>
+                        
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure want to Delete</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Be sure to delete "{{i.title}}"</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <a href="{%url 'staff:deleteBlog' i.id%}">
+                                    <button type="button" class="btn btn-danger">Yes</button>
+                                </a>
+                            
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </a>         
+        
+        </div>  
+        {% endfor %}
+    {%else%}
+        <h6>No Blog Found</h6>
+    {% endif %}
+        
+  
+
+     
+{% endblock subcontent %}
+    
+    

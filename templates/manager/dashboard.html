@@ -1,0 +1,253 @@
+{% extends 'homepage/index.html' %}
+
+{% block title %}
+    {{request.user.username}} Dashboard
+{% endblock title %}
+    
+{% block content %}
+<div class="container-fluid p-0 m-0">
+
+    <div class="row m-0">
+        <div class="col-12 col-md-3 col-lg-3 menu-box p-3">
+          <div class="row">
+            {%url 'manager:dashboard' as dash%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == dash%} activedb {%endif%}">
+              <a href="{{dash}}">
+                  <i class="fa fa-tachometer d-block"></i>
+                  <small>Dashboard</small>
+              </a>
+             
+            </div>
+          
+            {%url 'manager:addAdmin' as admi%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+              <a href="{{admi}}">
+                <i class="fa fa-users d-block"></i>
+                <small>Admin</small>
+              </a>
+            </div>
+            {%url 'manager:addProduct' as admi%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                <a href="{{admi}}">
+                  <i class="fa fa-product-hunt d-block"></i>
+                  <small>Product</small>
+                </a>
+                
+            </div>
+            {%url 'manager:addClient' as client%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == client%}activedb{%endif%}">
+                <a href="{{client}}">
+                <i class="fa fa-user-plus d-block"></i>
+                <small>Client</small>
+                  </a>
+            </div>
+
+            {%url 'manager:addService' as admi%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+              <a href="{{admi}}">
+                <i class="fa fa-server d-block"></i>
+                <small>Service</small>
+              </a>
+            </div>
+
+            {%url 'manager:addTestomonial' as admi%}
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+              <a href="{{admi}}">
+                <i class="fa fa-info-circle d-block"></i>
+                <small>Testomonial</small>
+              </a>
+            </div>
+            <div class="submenu m-2 p-2 text-center col-3 col-lg-5">
+              <a href="{%url 'staff:logout'%}">
+                <i class="fa fa-sign-out d-block"></i>
+                <small>Logout</small>
+              </a>
+            
+            </div>
+            <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+              <div data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"> 
+                <i class="fa fa-bars d-block"></i>
+                <small>More</small>
+              </div>
+            </div>
+          </div>
+          <div class="text-center blog-info">
+            <hr class="m-1">
+            <h6>Blog</h6>
+            <h4>2918</h4>
+            <small>Total View</small>
+            <hr class="m-1">
+          </div>
+          <div class="text-center other-info">
+            <div class="row">
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                <h5>{{blog_count}}</h5>
+                <small>Blogs</small>
+              </div>
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                <h5>{{staff}}</h5>
+                <small>Admin</small>
+              </div>
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                  <h5>{{product}}</h5>
+                  <small>Product</small>
+              </div>
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                <h5>{{client_count}}</h5>
+                <small>Client</small>
+              </div>
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                <h5>{{testo_count}}</h5>
+                <small>Testomonial</small>
+              </div>
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5">
+                <h5>{{service}}</h5>
+                <small>Services</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 col-lg-9 content-box">
+            <div class="row p-3">
+              
+              {% block subcontent %}
+                <h3>Latest Blog</h3>
+                {% for i in blog  %}
+                    <div class="col-12 col-md-6 col-lg-6 p-2">
+                        <a href="{%url 'homepage:blogV' i.id%}">
+                          <div class="blogbox">
+                            <small>{{i.date_added}}</small>
+                            <h5>{{i.title|truncatewords:8}}</h5>
+                            <div>
+                              {{i.description|safe|truncatewords:10}}
+                            </div>
+                          </div>
+                        </a>
+                       
+                       
+                    </div>
+                {% endfor %}
+                  
+              {% endblock subcontent %}
+
+            </div>
+        </div>
+    </div>
+   
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-center" id="offcanvasExampleLabel">More Menu</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <hr>
+          <form class="d-flex" action="{%url 'staff:searchBlog'%}" method="GET">
+            <input class="form-control me-2" name="blogS" type="search" placeholder="Search Blog..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <hr>
+          <div class="container-fluid">
+            <div class="row">
+              {%url 'staff:addBlog' as blog%}
+              
+                <div class="submenu m-2 p-2 text-center col-3 col-lg-5 {%if request.path == blog%}activedb{%endif%}">
+                  <a href="{{blog}}">
+                    <i class="fa fa-server d-block"></i>
+                    <small>Blogs</small>
+                  </a>
+                </div>
+              
+              {%url 'staff:addCategory' as blog%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == blog%}activedb{%endif%}">
+                <a href="{{blog}}">
+                  <i class="fa fa-users d-block"></i>
+                  <small>Category</small>
+                </a>
+               
+              </div>
+              {%url 'staff:addSubCategory' as blog%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == blog%}activedb{%endif%}">
+                <a href="{{blog}}">
+                  <i class="fa fa-users d-block"></i>
+                  <small>Sub Category</small>
+                </a>
+              </div>
+              {%url 'manager:addAdmin' as admi%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                <a href="{{admi}}">
+                  <i class="fa fa-users d-block"></i>
+                  <small>Admin</small>
+                </a>
+              </div>
+              {%url 'manager:addProduct' as admi%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                  <a href="{{admi}}">
+                    <i class="fa fa-product-hunt d-block"></i>
+                    <small>Product</small>
+                  </a>
+                  
+              </div>
+              {%url 'manager:addClient' as client%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == client%}activedb{%endif%}">
+                  <a href="{{client}}">
+                  <i class="fa fa-user-plus d-block"></i>
+                  <small>Client</small>
+                    </a>
+              </div>
+
+              {%url 'manager:addService' as admi%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                <a href="{{admi}}">
+                  <i class="fa fa-server d-block"></i>
+                  <small>Service</small>
+                </a>
+              </div>
+
+              {%url 'manager:addTestomonial' as admi%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                <a href="{{admi}}">
+                  <i class="fa fa-info-circle d-block"></i>
+                  <small>Testomonial</small>
+                </a>
+              </div>
+              {%url 'manager:company' as admi%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == admi%}activedb{%endif%}">
+                <a href="{{admi}}">
+                  <i class="fa fa-server d-block"></i>
+                  <small>Settings</small>
+                </a>
+               
+              </div>
+              
+              {%url 'staff:Profile' as prof%}
+              <div class="submenu m-2 p-2 text-center col-3 col-md-5 {%if request.path == prof%}activedb{%endif%}">
+                <a href="{%url 'staff:profile' request.user.id%}">
+                  <i class="fa fa-server d-block"></i>
+                  <small>Profile</small>
+                </a>
+                 
+              </div>
+              {%url 'staff:changePassword' as pwChange%}
+              <div class="submenu m-2 p-2 text-center col-3 col-lg-5 {%if request.path == pwChange%}activedb{%endif%}">
+                <a href="{{pwChange}}">
+                  <i class="fa fa-server d-block"></i>
+                  <small>Password</small>
+                </a>
+              </div>
+              {%url 'staff:logout' as logout%}
+              <div class="submenu m-2 p-2 text-center col-3 col-lg-5 {%if request.path == logout%}activedb{%endif%}">
+                <a href="{{logout}}">
+                <i class="fa fa-sign-out d-block"></i>
+                <small>Logout</small>
+                </a>
+              </div>
+             
+            
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+    
