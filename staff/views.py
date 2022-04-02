@@ -269,4 +269,4 @@ def searchBlog(request):
         'testo_count':testo_count
     }
     dist.update(public)
-    return render(request, "staff/SearchBlog.html", dist)
+    return render(request, "staff/searchBlog.html", dist)
