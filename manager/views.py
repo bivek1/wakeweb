@@ -21,6 +21,7 @@ class Dashboard(View):
 
         dist = {
             'blog':blog,
+           
         }
         blog_count = Blog.objects.all().count()
         staff_count = User.objects.all().count()
@@ -35,7 +36,8 @@ class Dashboard(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
 
         dist.update(public)
@@ -67,7 +69,8 @@ class AddAdmin(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
 
@@ -123,7 +126,8 @@ class AddProduct(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
 
@@ -181,7 +185,8 @@ class AddService(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
 
@@ -245,7 +250,8 @@ class AddClient(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
 
@@ -309,7 +315,8 @@ class AddTestomonial(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
         return render(request, self.template_name, dist)
@@ -371,14 +378,14 @@ def Company(request):
         'client_count':client_count,
         'product':product_count,
         'service':service_count,
-        'testo_count':testo_count
+        'testo_count':testo_count,
+        'company' : CompanyInformation.objects.get(id = 1)
     }
     dist.update(public)
     if request.method == 'POST':
-        form = CompanyInformationForm(request.POST, request.FILES)
-        if form.is_valid():
-            
-            if sett:
+        forms = CompanyInformationForm(request.POST, request.FILES)
+        if forms.is_valid():
+            if setting:
                 setting.name = request.POST['name']
                 setting.short = request.POST['short']
                 setting.aims = request.POST['aims']
@@ -388,8 +395,8 @@ def Company(request):
                     pass
                 setting.save()
             else:
-                form.save()
+                forms.save()
             messages.success(request, "Successfully Updated Settings")
-            return HttpResponseRedirect(reverse("manager:company"))
+            return render(request, "staff/other/setting.html", dist)
     else:
         return render(request, "staff/other/setting.html", dist)

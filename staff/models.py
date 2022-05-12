@@ -20,6 +20,7 @@ class SubCategory(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=300)
+    photo = models.ImageField(upload_to="blogs/", null = True, blank = True),
     category = models.ForeignKey(Category, related_name  = "blog_category", on_delete = models.PROTECT)
     sub_category = models.ForeignKey(SubCategory, related_name = "blog_sub_category", on_delete= models.PROTECT, null = True, blank = True)
     description = RichTextUploadingField()

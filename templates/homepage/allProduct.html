@@ -1,0 +1,48 @@
+{% extends 'homepage/index.html' %}
+{% load static %}
+{% block title %}
+    Wake and Tech Products
+{% endblock title %}
+
+
+{% block content %}
+    <div class="maintain" style="height: 90px;">
+
+    </div>
+    
+     <!-- Projects -->
+	<div id="projects" class="filter bg-white pt-0">
+		<div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h2-heading">Our Products</h2>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row p-0 m-0">
+                <div class="col-lg-12">
+                      
+                    <div class="grid">
+                        
+                        {% for i in product %}
+                        <a href="{%url 'homepage:productDetails' i.id%}">
+                            <div class="element-item development">
+                               
+                                <img class="img-fluid" src="{{i.image.url}} " alt="alternative">
+                                <p><strong>{{i.name}}</strong> - {{i.description|truncatewords:5|safe}}</p>
+                         
+                            </div>
+                        </a>
+                       
+                        {% endfor %}
+                            
+                    </div> <!-- end of grid -->
+                    <!-- end of filter -->
+                    
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+         
+		</div> <!-- end of container -->
+    </div> <!-- end of filter -->
+    <!-- end of projects -->
+{% endblock content %}
+    

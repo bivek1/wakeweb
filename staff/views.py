@@ -10,6 +10,7 @@ from .forms import BlogForm, CategoryForm, FormChangePassword, SubCategoryForm
 from .models import Blog, SubCategory, Category
 from django.contrib import messages
 from manager.forms import UserUpdateForm
+from homepage.models import CompanyInformation
 from django.contrib.messages.views import SuccessMessageMixin
 # Create your views here.
 
@@ -37,7 +38,8 @@ class AddBlog(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist = {
             'form':form,
@@ -94,7 +96,8 @@ class AddCategory(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist = {
             'form':form,
@@ -155,7 +158,8 @@ class AddSubCategory(View):
             'client_count':client_count,
             'product':product_count,
             'service':service_count,
-            'testo_count':testo_count
+            'testo_count':testo_count,
+            'company' : CompanyInformation.objects.get(id = 1)
         }
         dist.update(public)
         return render(request, self.template_name, dist)
@@ -231,7 +235,8 @@ def changePassword(request):
         'client_count':client_count,
         'product':product_count,
         'service':service_count,
-        'testo_count':testo_count
+        'testo_count':testo_count,
+        'company' : CompanyInformation.objects.get(id = 1)
     }
     dist.update(public)
     return render(request, 'staff/changePassword.html',dist )
@@ -266,7 +271,8 @@ def searchBlog(request):
         'client_count':client_count,
         'product':product_count,
         'service':service_count,
-        'testo_count':testo_count
+        'testo_count':testo_count,
+        'company' : CompanyInformation.objects.get(id = 1)
     }
     dist.update(public)
     return render(request, "staff/searchBlog.html", dist)

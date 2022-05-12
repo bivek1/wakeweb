@@ -1,17 +1,49 @@
-{%extends 'homepage/index.html'%}
-
+{% extends 'homepage/index.html' %}
+{% load static %}
 {% block title %}
-    {{blog.title}}      
+    {{service.name}}
 {% endblock title %}
 
-    {% block content %}
-    <div class="container">
-        <h3>{{blog.title}}</h3>
-        <small>{{blog.date_added}}</small>
-        <div>
-            {{blog.description|safe}}
-        </div>
-    </div>
-    {% endblock content %}
 
+{% block content %}
+    <div class="maintain" style="height: 40px;">
+
+    </div>
+    
+    <!-- Services -->
+    <div id="services" class="cards-1">
+        <div class="container">
+ 
+               
+            <h4 class="text-center">Blogs World</h4>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                        
+                        {% for i in blog %}
+                        <a href="{%url 'homepage:blogV' i.id%}">
+                            <div class="card me-3 mt-0" style="height:300px; cursor: pointer;">
+                                <!-- <div class="text-center">
+                                    <img src="{{service.image.url}}" alt="{{service.name}}" srcset="" style="height: 140px; width:140px;">
+                                </div> -->
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">{{i.title}}</h5>
+                                    <p>{{i.description|truncatewords:20|safe}}</p>
+                                  
+                                </div>
+                            </div> 
+                        </a>
+                       
+                        {% endfor %}
+                            
+                      
+                
+                    </a>
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of cards-1 -->
+    <!-- end of services -->
+{% endblock content %}
     

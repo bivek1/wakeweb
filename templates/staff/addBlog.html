@@ -59,9 +59,9 @@
         <div class="col-12 col-md-6 mt-3">   
             <a href="{%url 'staff:updateBlog' i.id%}">
                 <div class="blogbox">
-                    <small>{{i.date_added}}</small>
-                    <h5>{{i.title|truncatewords:8}}</h5>
-                    <div>
+                    <small class="text-dark">{{i.date_added}}</small>
+                    <h5 class="text-dark">{{i.title|truncatewords:8}}</h5>
+                    <div class="text-dark">
                         {{i.description|safe|truncatewords:10}}
                     </div>
                     <hr>
