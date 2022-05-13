@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
-from manager.models import Product, Service
+from staff.models import Category
+from manager.models import Product, Service, Testomonial
 from staff.models import Blog
 from django.contrib.auth import authenticate
 from django.urls import reverse
@@ -21,18 +22,18 @@ class Homepage(TemplateView):
         dist = {
             'company':self.cm,
             'product':Product.objects.all()[:6],
-            'service':Service.objects.all()[:3]
+            'service':Service.objects.all()[:3],
+            'testo':Testomonial.objects.all()[:5]
         }
         return render(request, self.template_name, dist)
 
 def BlogV(request, id):
    
     template_name = "homepage/blogV.html"
- 
-  
+    blog = Blog.objects.get(id = id)
     dist = {
-
-        'blog':Blog.objects.get(id = id)
+        'blog':blog,
+        'related':Blog.objects.filter(category=blog.category)
     }
     return render(request, template_name, dist)
 
@@ -122,6 +123,21 @@ class ShowingBlog(TemplateView):
     def get(self, request, *args, **kwargs):
         dist = {
          
-            'blog':Blog.objects.all()
+            'blog':Blog.objects.all(),
+            'category':Category.objects.all()[:3]
         }
         return render(request, self.template_name, dist)
+
+
+class Team(TemplateView):
+    template_name = 'homepage/team.html'
+
+
+class Ceo(TemplateView):
+    template_name = 'homepage/ceo.html'
+
+class Privacy(TemplateView):
+    template_name = 'homepage/privacy.html'
+
+class Term(TemplateView):
+    template_name = 'homepage/ceo.html'

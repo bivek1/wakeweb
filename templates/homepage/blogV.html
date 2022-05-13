@@ -13,15 +13,34 @@
     <!-- Services -->
     <div id="services" class="cards-1">
         <div class="container">
- 
-               
-            <h4 class="text-center">{{blog.title}}</h4>
-            <hr>
             <div class="row">
-                <div class="col-lg-12">
-                    {{blog.description|safe}}
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
+                <div class="col-md-3 col-12" style="background-color: aliceblue;">
+                    <h5>Related Topic</h5>
+                    <hr>
+                    {% for i in related  %}
+                        <div class="m-0 pt-2 p-0">
+                            <a href="{%url 'homepage:blogV' i.id%}">
+                                <button class="btn-solid-sm">
+                                    {{i.title|truncatewords:4}}
+                                </button>
+                            </a>
+                           
+                        </div>
+                    {% endfor %}
+                        
+                </div>
+                <div class="col-md-9 col-12 ">
+                    <h4 class="text-center">{{blog.title}}</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{blog.description|safe}}
+                        </div> <!-- end of col -->
+                    </div> <!-- end of row -->
+                </div>
+            </div>
+          
+           
         </div> <!-- end of container -->
     </div> <!-- end of cards-1 -->
     <!-- end of services -->

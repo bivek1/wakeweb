@@ -47,7 +47,7 @@
     
     {% block navbar %}
     <!-- Navigation -->
-    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
+    <nav style="box-shadow: 0 3px 6px 0 rgb(0 0 0 / 5%);" id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
         <div class="container">
 
             <!-- Image Logo -->
@@ -63,35 +63,41 @@
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ms-auto navbar-nav-scroll">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{%url 'homepage:homepage'%}">Home</a>
+                        {%url 'homepage:homepage' as homepage%}
+                        <a class="nav-link {%if request.path == homepage%} active {%endif%}" aria-current="page" href="{%url 'homepage:homepage'%}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
+                        {%url 'homepage:service' as service%}
+                        <a class="nav-link {%if request.path == service%} active {%endif%}" href="{{service}}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#projects">Products</a>
+                        {%url 'homepage:product' as product%}
+                        <a class="nav-link {%if request.path == product%} active {%endif%}" href="{{product}}">Products</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#pricing">Client</a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{%url 'homepage:ShowingBlog'%}">Blogs</a>
+                        {%url 'homepage:ShowingBlog' as blog%}
+                        <a class="nav-link {%if request.path == blog%} active {%endif%}" href="{%url 'homepage:ShowingBlog'%}">Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{%url 'homepage:contact'%}">Contact Us</a>
+                        {%url 'homepage:contact' as contact%}
+                        <a class="nav-link {%if request.path == contact%} active {%endif%}" href="{%url 'homepage:contact'%}">Contact Us</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">More</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                            <li><a class="dropdown-item" href="privacy.html">CEO Message</a></li>
+                            {%url 'homepage:ceo' as ceo%}
+                            <li><a class="dropdown-item {%if request.path == ceo%} active {%endif%}" href="{{ceo}}">CEO Message</a></li>
                             <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="privacy.html">Our Team</a></li>
+
+                            <li><a class="dropdown-item" href="{%url 'homepage:team'%}">Our Team</a></li>
                             <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="article.html">Testomonial</a></li>
+
+                            <li><a class="dropdown-item" href="{%url 'homepage:term'%}">Terms Conditions</a></li>
                             <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="terms.html">Terms Conditions</a></li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="{%url 'homepage:privacy'%}">Privacy Policy</a></li>
                            {% if user.is_authenticated %}
                            <li><div class="dropdown-divider"></div></li>
                            <li><a class="dropdown-item" href="{%url 'manager:dashboard'%}">Dashboard</a></li>
@@ -260,17 +266,17 @@
             <div class="row">
                 <div class="col-lg-6 col-xl-5">
                     <div class="text-container">
-                        <h2><span>Awesome websites</span><br> built with tons of love</h2>
-                        <p>In gravida vitae nulla vitae tincidunt imperdiet ante. Pellentesque aliquet mi eu tortor dictum, non imperdiet ante viverra. Phasellus eget enim orci flig rine bilo</p>
+                        <h2><span>Awesome Webapplication</span><br> built with tons of love</h2>
+                        <p>We are on for the development of Website, Webapplication. You can get your entire site within a week.</p>
                         
                         <!-- Counter -->
                         <div class="counter-container">
                             <div class="counter-cell">
-                                <div data-purecounter-start="0" data-purecounter-end="1250" data-purecounter-duration="2" class="purecounter">1</div>
+                                <div data-purecounter-start="0" data-purecounter-end="210" data-purecounter-duration="2" class="purecounter">1</div>
                                 <div class="counter-info">Happy Customers</div>
                             </div> <!-- end of counter-cell -->
                             <div class="counter-cell red">
-                                <div data-purecounter-start="0" data-purecounter-end="1380" data-purecounter-duration="2" class="purecounter">1</div>
+                                <div data-purecounter-start="0" data-purecounter-end="544" data-purecounter-duration="2" class="purecounter">1</div>
                                 <div class="counter-info">Issues Solved</div>
                             </div> <!-- end of counter-cell -->
                         </div> <!-- end of counter-container -->
@@ -335,78 +341,26 @@
                         <div class="swiper-container card-slider">
                             <div class="swiper-wrapper">
                                 
-                                <!-- Slide -->
+                                {% for i in testo  %}
+                                         <!-- Slide -->
                                 <div class="swiper-slide">
                                     <div class="card">
-                                        <img class="quotes" src="{%static 'images/quotes.svg'%} " alt="alternative">
+                                       
                                         <div class="card-body">
-                                            <p class="testimonial-text">Fusce tincidunt dui nec diam varius venenatis. Nullam tristique rutrum odio, ut tincidunt erat dictum in. Etiam et aliquet mi, et vehicula elit fusce porta ullamcorper</p>
+                                            <p class="testimonial-text">{{i.description}}</p>
                                             <div class="details">
-                                                <img class="testimonial-image" src="{%static 'images/testimonial-1.jpg'%} " alt="alternative">
+                                                <!-- <img class="testimonial-image" src="{%static 'images/testimonial-1.jpg'%} " alt="alternative"> -->
                                                 <div class="text">
-                                                    <div class="testimonial-author">Samantha Bloom</div>
-                                                    <div class="occupation">Team Leader - Syncnow</div>
+                                                    <div class="testimonial-author">{{i.name}}</div>
+                                                    <!-- <div class="occupation">Team Leader - Syncnow</div> -->
                                                 </div> <!-- end of text -->
                                             </div> <!-- end of testimonial-details -->
                                         </div>
                                     </div> 
                                 </div> <!-- end of swiper-slide -->
                                 <!-- end of slide -->
-
-                                <!-- Slide -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <img class="quotes" src="{%static 'images/quotes.svg'%}" alt="alternative">
-                                        <div class="card-body">
-                                            <p class="testimonial-text">Mauris ut mattis nisl. Nunc ultrices nisi eget nisl pulvinar iaculis vitae ac nulla. Nullam fringilla varius blandit. Nam sit amet eleifend justo blogo rovan de chichis kokos venir dab</p>
-                                            <div class="details">
-                                                <img class="testimonial-image" src="{%static 'images/testimonial-2.jpg'%} " alt="alternative">
-                                                <div class="text">
-                                                    <div class="testimonial-author">Mike Page</div>
-                                                    <div class="occupation">Developer - Chainlink</div>
-                                                </div> <!-- end of text -->
-                                            </div> <!-- end of testimonial-details -->
-                                        </div>
-                                    </div> 
-                                </div> <!-- end of swiper-slide -->
-                                <!-- end of slide -->
-
-                                <!-- Slide -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <img class="quotes" src="{%static 'images/quotes.svg'%}" alt="alternative">
-                                        <div class="card-body">
-                                            <p class="testimonial-text">Nam sit amet eleifend justo. Aliquam sit amet lacinia enim, eget facilisis ex. Ut pretium cursus eleifend. Integer feugiat malesuada quam vel basil venis proca jilo</p>
-                                            <div class="details">
-                                                <img class="testimonial-image" src="{%static 'images/testimonial-3.jpg'%} " alt="alternative">
-                                                <div class="text">
-                                                    <div class="testimonial-author">Mary Longhorn</div>
-                                                    <div class="occupation">Manager - Firstdev</div>
-                                                </div> <!-- end of text -->
-                                            </div> <!-- end of testimonial-details -->
-                                        </div>
-                                    </div> 
-                                </div> <!-- end of swiper-slide -->
-                                <!-- end of slide -->
-
-                                <!-- Slide -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <img class="quotes" src="{%static 'images/quotes.svg'%}" alt="alternative">
-                                        <div class="card-body">
-                                            <p class="testimonial-text">Lorem ipsum dolor sit amet, consectetur ing elit. Nulla id nisl tempus risus facilisis efficr ut tincidunt vitae enim non vehicula. Phases vitae metus in felis gravida ultrices zimbo</p>
-                                            <div class="details">
-                                                <img class="testimonial-image" src="{%static 'images/testimonial-4.jpg'%} " alt="alternative">
-                                                <div class="text">
-                                                    <div class="testimonial-author">Ronny Drummer</div>
-                                                    <div class="occupation">Designer - Sawdust</div>
-                                                </div> <!-- end of text -->
-                                            </div> <!-- end of testimonial-details -->
-                                        </div>
-                                    </div> 
-                                </div> <!-- end of swiper-slide -->
-                                <!-- end of slide -->
-
+                                {% endfor %}
+                                    
                             </div> <!-- end of swiper-wrapper -->
         
                             <!-- Add Arrows -->
@@ -429,8 +383,9 @@
     <div id="pricing" class="cards-2">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="h2-heading"><span>Choose the package</span><br> that fits your budget and project</h2>
+                <div class="col-lg-12 text-center">
+                    <h2 class="h2-heading "><span>Choose the package</span><br> that fits your budget and project</h2>
+                 
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
             <div class="row">
@@ -440,19 +395,18 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Landing page</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
+                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Information Website </span><img class="decoration-lines flipped" src="{%static 'images/decoration-lines.svg'%}" alt="alternative">
                             </div>
                             <ul class="list-unstyled li-space-lg">
-                                <li>Fusce pulvinar eu mi acm</li>
-                                <li>Curabitur consequat nisl bro</li>
-                                <li>Reget facilisis molestie</li>
-                                <li>Vivamus vitae sem in tortor</li>
-                                <li>Pharetra vehicula ornares</li>
-                                <li>Vivamus dignissim sit amet</li>
-                                <li>Ut convallis aliquama set</li>
+                                <li>10-15 Pages</li>
+                                <li>Landing page and Other Design</li>
+                                <li>Free Hosting</li>
+                                <li>Free Domain</li>
+                                <li>Contact Us Dashboard</li>
+                            
                             </ul>
-                            <div class="price">$200</div>
-                            <a href="#contact" class="btn-outline-reg">Get quote</a>
+                            <div class="price">Rs.15,000</div>
+                            <a href="#contact" class="btn-outline-reg">Get Quota</a>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -461,19 +415,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Corporate site</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
+                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Ecommerce Site</span><img class="decoration-lines flipped" src="{%static 'images/decoration-lines.svg'%}" alt="alternative">
                             </div>
                             <ul class="list-unstyled li-space-lg">
-                                <li>Nunc commodo magna quis</li>
-                                <li>Lacus fermentum tincidunt</li>
-                                <li>Nullam lobortis porta diam</li>
-                                <li>Announcing of invita mro</li>
-                                <li>Dictum metus placerat luctus</li>
-                                <li>Sed laoreet blandit mollis</li>
-                                <li>Mauris non luctus est</li>
-                            </ul>
-                            <div class="price">$300</div>
-                            <a href="#contact" class="btn-outline-reg">Get quote</a>
+                                <li>Single Vendor / Multivendor Ecommerce</li>
+                                <li>20-25 Pages</li>
+                                <li>Product, Category, Sub Category</li>
+                                <li>Admin Dashboard</li>
+                                <li>Seller Dashboard(Multi-vendor)</li>
+                                <li>Customer Dashboard</li>
+                                <li>Order and Cart</li>
+                
+                            <div class="price">Rs.30000</div>
+                          
+                            <a href="#contact" class="btn-outline-reg">Get Quote</a>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -482,19 +437,19 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Online shop</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
+                                <img class="decoration-lines" src="{%static 'images/decoration-lines.svg'%} " alt="alternative"><span>Design And Boosting</span><img class="decoration-lines flipped" src="{%static 'images/decoration-lines.svg'%}" alt="alternative">
                             </div>
                             <ul class="list-unstyled li-space-lg">
-                                <li>Quisque rutrum mattis</li>
-                                <li>Quisque tristique cursus lacus</li>
-                                <li>Interdum sollicitudin maec</li>
-                                <li>Quam posuere, pellentesque</li>
-                                <li>Est nec, gravida turpis integer</li>
-                                <li>Mollis felis. Integer id quam</li>
-                                <li>Id tellus hendrerit lacinia</li>
+                                <li>4 Design per week</li>
+                                <li>Per week Boosting</li>
+                            
+                                <li>Fb Page Handling</li>
+                                <li>Content Design and Writing</li>
+                                <li>Order Report</li>
+                                <li>Communicating with customer</li>
                             </ul>
-                            <div class="price">$400</div>
-                            <a href="#contact" class="btn-outline-reg">Get quote</a>
+                            <div class="price">Rs. 25000</div>
+                            <a href="#contact" class="btn-outline-reg">Get Quote</a>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -571,7 +526,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4>Pellentesque aliquet mi eu tortor dictum, non imperdiet ante viverra. Phasellus eget enim orci ut pellentes troc</h4>
+                    <h4>Wake and Tech Nepal Private Limited thank you for visiting us.</h4>
                     <div class="social-container">
                         <span class="fa-stack">
                             <a href="#your-link">
@@ -579,30 +534,7 @@
                                 <i class="fab fa-facebook-f fa-stack-1x"></i>
                             </a>
                         </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-youtube fa-stack-1x"></i>
-                            </a>
-                        </span>
+                      
                     </div> <!-- end of social-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -617,16 +549,16 @@
             <div class="row">
                 <div class="col-lg-6">
                     <ul class="list-unstyled li-space-lg p-small">
-                        <li><a href="article.html">Article Details</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        
+                        <li><a href="{%url 'homepage:term'%}">Terms & Conditions</a></li>
+                        <li><a href="{%url 'homepage:privacy'%}">Privacy Policy</a></li>
                     </ul>
                 </div> <!-- end of col -->
                 <div class="col-lg-3">
-                    <p class="p-small statement">Copyright © <a href="#">Your name</a></p>
+                    <p class="p-small statement">Copyright © <a href="#">Wake and Tech Nepal</a></p>
                 </div> <!-- end of col -->
                 <div class="col-lg-3">
-                    <p class="p-small statement">Distributed By: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
+                    <p class="p-small statement">Design By: <a href="#" >Bibek Dhakal</a></p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->

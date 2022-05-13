@@ -11,5 +11,9 @@ urlpatterns = [
     path('productsDetails/<int:id>', views.productDetail, name="productDetails"),
     path('contactus', views.Contactus.as_view(), name="contact"),
     path('blogs', views.ShowingBlog.as_view(), name ="ShowingBlog"),
+    path('team', views.Team.as_view(), name ="team"),
+    path('terms-and-condition', views.Term.as_view(), name ="term"),
+    path('Ceo-Message', views.Ceo.as_view(), name ="ceo"),
+    path('privacy-and-policy', views.Privacy.as_view(), name ="privacy"),
     path('login', views.LoginV, name = 'login'),
 ]
