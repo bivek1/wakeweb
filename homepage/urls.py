@@ -15,5 +15,7 @@ urlpatterns = [
     path('terms-and-condition', views.Term.as_view(), name ="term"),
     path('Ceo-Message', views.Ceo.as_view(), name ="ceo"),
     path('privacy-and-policy', views.Privacy.as_view(), name ="privacy"),
+    path('verifyfirst', views.postwork, name = "work"),
+    path('postyourwork/<int:id>', views.PostNow, name = "post"),
     path('login', views.LoginV, name = 'login'),
 ]

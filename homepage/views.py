@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login
-from .models import CompanyInformation
+from .models import CompanyInformation, Worker, Proff
 # Create your views here.
 class Homepage(TemplateView):
     com = CompanyInformation.objects.all()
@@ -140,4 +140,29 @@ class Privacy(TemplateView):
     template_name = 'homepage/privacy.html'
 
 class Term(TemplateView):
-    template_name = 'homepage/ceo.html'
+    template_name = 'homepage/terms.html'
+
+
+def postwork(request):
+    if request.method == 'POST':
+        code = request.POST['code']
+        try:
+            wor = Worker.objects.get(code = code)
+            return HttpResponseRedirect(reverse('homepage:post', args=[wor.id]))
+        except:
+            pass
+    return render(request, "homepage/codework.html")
+
+def PostNow(request, id):
+    wor = Worker.objects.get(id = id) 
+    dist = {
+        'worker': wor
+    }
+    if request.method == 'POST':
+        # FI = request.FILES['file']
+        # Proff.objects.create(worker = wor, photo = FI)
+        for f in request.FILES.getlist('file'):
+            print(f)
+            Proff.objects.create(worker = wor, photo = f)
+        messages.success(request, "Successfully Added Your Work")
+    return render(request, "homepage/postwork.html", dist)

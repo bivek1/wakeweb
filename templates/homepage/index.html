@@ -53,9 +53,6 @@
             <!-- Image Logo -->
             <a class="navbar-brand logo-image" href="{%url 'homepage:homepage'%}"><img src="{%static 'images/logo.jpg'%} " alt="alternative"></a> 
 
-            <!-- Text Logo - Use this if you don't have a graphic logo -->
-            <!-- <a class="navbar-brand logo-text" href="index.html">Zinc</a> -->
-
             <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -85,6 +82,10 @@
                         {%url 'homepage:contact' as contact%}
                         <a class="nav-link {%if request.path == contact%} active {%endif%}" href="{%url 'homepage:contact'%}">Contact Us</a>
                     </li>
+                    <li class="nav-item">
+                        {%url 'homepage:work' as work%}
+                        <a class="nav-link {%if request.path == work%} active {%endif%}" href="{{work}}">Post Work</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">More</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown01">
@@ -94,14 +95,12 @@
 
                             <li><a class="dropdown-item" href="{%url 'homepage:team'%}">Our Team</a></li>
                             <li><div class="dropdown-divider"></div></li>
-
                             <li><a class="dropdown-item" href="{%url 'homepage:term'%}">Terms Conditions</a></li>
                             <li><div class="dropdown-divider"></div></li>
                             <li><a class="dropdown-item" href="{%url 'homepage:privacy'%}">Privacy Policy</a></li>
                            {% if user.is_authenticated %}
                            <li><div class="dropdown-divider"></div></li>
                            <li><a class="dropdown-item" href="{%url 'manager:dashboard'%}">Dashboard</a></li>
-                             
                            {% endif %}
                                
                         </ul>
@@ -111,7 +110,6 @@
                     {% if user.is_authenticated %}
                     
                     <a class="btn-solid-sm" href="{%url 'staff:logout'%}">Logout</a>
-
 
                     {%else%}
                     <a class="btn-solid-sm" href="{%url 'homepage:login'%}">Login</a>

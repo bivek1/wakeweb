@@ -1,0 +1,43 @@
+{% extends 'homepage/index.html' %}
+{% load static %}
+{% block title %}
+    Verify Your Indentity
+{% endblock title %}
+
+
+{% block content %}
+
+       <!-- Contact -->
+       <div id="contact" class="form-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h2-heading"><span>Use the following field to verify you</span></h2>
+                    <hr>
+                
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    
+                    <!-- Contact Form -->
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" placeholder="Enter Your Code" name="code" required >
+                        </div>
+                      
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <button type="submit" class="form-control-submit-button">Verify</button>
+                        </div>
+                    </form>
+                    <!-- end of contact form -->
+
+                </div> <!-- end of col -->
+            
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
+    <!-- end of contact -->
+{% endblock content %}
+    
