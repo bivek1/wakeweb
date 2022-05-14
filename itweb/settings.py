@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-==bl68yq8ia&p3%z1(*mae1ghm+*lol^le%)v+)c0=f9ktbhoe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['merobilling.com','www.merobilling.com']
 # ALLOWED_HOSTS = ['itblogweb.herokuapp.com']
 # Application definition
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'staff.apps.StaffConfig',
     'homepage.apps.HomepageConfig',
     'fontawesomefree',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -121,10 +122,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = BASE_DIR / 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static/',
-)
+STATIC_ROOT = BASE_DIR / 'static/'
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'static/',
+# )
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
@@ -147,8 +148,36 @@ CKEDITOR_CONFIGS = {
         'width': 'auto',
     },
 }
+# PWA
 
+PWA_SERVICE_WORKER_PATH = BASE_DIR / 'static/js/serviceworker.js'
 
-# import dj_database_url 
-# prod_db  =  dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)
+PWA_APP_NAME = 'Wake and Tech'
+PWA_APP_DESCRIPTION = "Wake and Tech Nepal. Everything Happens Here.."
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+	{
+		'src': 'static/images/160.png',
+		'sizes': '160x160'
+	}
+]
+PWA_APP_ICONS_APPLE = [
+	{
+		'src': 'static/images/160.png',
+		'sizes': '160x160'
+	}
+]
+PWA_APP_SPLASH_SCREEN = [
+	{
+		'src': 'static/images/logo.png',
+		'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+	}
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'

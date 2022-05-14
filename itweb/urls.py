@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('homepage.urls', namespace="homepage")),
     path('manager/', include('manager.urls', namespace= "manager")),
     path('staff/', include('staff.urls', namespace="staff")),
+    path("", include('pwa.urls'))
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
