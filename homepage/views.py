@@ -1,9 +1,11 @@
+
+from email import message
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from staff.models import Category
 from manager.models import Product, Service, Testomonial
-from staff.models import Blog
+from staff.models import Blog, Comment
 from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.contrib import messages
@@ -31,10 +33,17 @@ def BlogV(request, id):
    
     template_name = "homepage/blogV.html"
     blog = Blog.objects.get(id = id)
+    comment = Comment.objects.filter(blog = blog)
     dist = {
         'blog':blog,
-        'related':Blog.objects.filter(category=blog.category)
+        'related':Blog.objects.filter(category=blog.category),
+        'comment':comment
     }
+    if request.method == 'POST':
+        comment = request.POST['comment']
+        Comment.objects.create(blog = blog, comment = comment)
+        messages.success(request, "Successfully Added Comment")
+
     return render(request, template_name, dist)
 
 
@@ -166,3 +175,12 @@ def PostNow(request, id):
             Proff.objects.create(worker = wor, photo = f)
         messages.success(request, "Successfully Added Your Work")
     return render(request, "homepage/postwork.html", dist)
+
+
+def categoryPage(request, id):
+    category = Category.objects.get(id = id)
+    dist = {
+        'blog':Blog.objects.filter(category=category),
+        'category':category
+    }
+    return render(request, "homepage/categoryblog.html", dist)

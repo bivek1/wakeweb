@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-==bl68yq8ia&p3%z1(*mae1ghm+*lol^le%)v+)c0=f9ktbhoe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # DEBUG = False
-ALLOWED_HOSTS = ['merobilling.com','www.merobilling.com']
-# ALLOWED_HOSTS = ['itblogweb.herokuapp.com']
+# ALLOWED_HOSTS = ['merobilling.com','www.merobilling.com']
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -122,10 +122,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static/'
-# STATICFILES_DIRS = (
-#     BASE_DIR / 'static/',
-# )
+# STATIC_ROOT = BASE_DIR / 'static/'
+STATICFILES_DIRS = (
+    BASE_DIR / 'static/',
+)
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'

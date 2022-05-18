@@ -18,4 +18,5 @@ urlpatterns = [
     path('verifyfirst', views.postwork, name = "work"),
     path('postyourwork/<int:id>', views.PostNow, name = "post"),
     path('login', views.LoginV, name = 'login'),
+    path('yourbloghere/<int:id>', views.categoryPage, name ="catblog")
 ]

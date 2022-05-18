@@ -529,7 +529,7 @@ select {
 	padding-bottom: 2.5rem;
 }
 
-.cards-1 .card {
+.cards-1 {
 	margin-bottom: 5rem;
 	padding: 3rem 2rem;
 	border: 1px solid #5e6576;
@@ -537,6 +537,19 @@ select {
 	background-color: transparent;
 }
 
+.card{
+	padding: 30px;
+	margin-top: 20px;
+	height:280px; width: 100%; cursor: pointer; background-color: white;border: none;box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)!important;
+}
+.card:hover{
+	background-color: rgb(225, 225, 225)!important;
+	box-shadow: 0 4px 8px 0 rgba(165, 165, 165, 0.2), 0 6px 20px 0 rgba(164, 164, 164, 0.19);
+}
+.relatedTopic{
+	background-color: white;
+	box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
 .cards-1 .card-icon {
 	width: 90px;
 	height: 90px;
@@ -976,8 +989,8 @@ select {
 /*     Contact     */
 /*******************/
 .form-1 {
-	padding-top: 9.25rem;
-	padding-bottom: 8.5rem;
+	padding-top: 1rem;
+	padding-bottom: 2rem;
 	text-align: center;
 }
 
@@ -1620,6 +1633,7 @@ select {
 
 
 	/* Contact */
+
 	.form-1 form {
 		width: 860px;
 		margin-right: auto;
@@ -1647,3 +1661,14 @@ select {
 	/* end of extra pages */
 }
 /* end of min-width 1200px */
+
+
+.commentbox{
+	background-color: rgb(228, 228, 228);
+	
+}
+.cotactform{
+	padding: 20px;
+	background-color: white!important;
+	box-shadow: 0 10px 6px 0 rgba(0, 0, 0, 0.05)!important;
+}

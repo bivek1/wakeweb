@@ -32,4 +32,11 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+class Comment(models.Model):
+    
+    blog = models.ForeignKey(Blog, related_name="blog_comment", on_delete=models.CASCADE)
+    comment = models.CharField(max_length=200)
+    objects = models.Manager()
 
+    def __str__(self):
+        return self.comment

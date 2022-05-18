@@ -5,6 +5,20 @@
 {% endblock title %}
 
 
+
+{% block seo %}
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{{blog.title}}">
+    <meta name="author" content="{{blog.title}}">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
+    <meta property="og:site_name" content="{{blog.title}}" /> <!-- website name -->
+    <meta property="og:site" content="" /> <!-- website link -->
+    <meta property="og:title" content="{{blog.time}}"/> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="{{blog.title}}" /> <!-- description shown in the actual shared post -->
+    <!-- <meta property="og:image" content="http://merobilling.com/static/images/logo.jpg" /> image link, make sure it's jpg -->
+{% endblock seo %}
+
 {% block content %}
     <div class="maintain" style="height: 40px;">
 
@@ -14,22 +28,8 @@
     <div id="services" class="cards-1">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-12" style="background-color: aliceblue;">
-                    <h5>Related Topic</h5>
-                    <hr>
-                    {% for i in related  %}
-                        <div class="m-0 pt-2 p-0">
-                            <a href="{%url 'homepage:blogV' i.id%}">
-                                <button class="btn-solid-sm">
-                                    {{i.title|truncatewords:4}}
-                                </button>
-                            </a>
-                           
-                        </div>
-                    {% endfor %}
-                        
-                </div>
-                <div class="col-md-9 col-12 ">
+               
+                <div class="col-md-8 col-12 ">
                     <h4 class="text-center">{{blog.title}}</h4>
                     <hr>
                     <div class="row">
@@ -38,6 +38,61 @@
                         </div> <!-- end of col -->
                     </div> <!-- end of row -->
                 </div>
+
+                <div class="col-md-4 col-12">
+                    <h5>Related Topic</h5>
+                    <hr>
+                    <div class="relatedTopic p-2" style="background-color: rgb(255, 255, 255); height: auto;">
+                        
+                        {% for i in messages  %}
+                            <div class="alert alert-secondary">
+                                {{i}}
+                            </div>
+                        {% endfor %}
+                            
+                        {% for i in related  %}
+                            <div class="m-0 pt-2 p-0">
+                                <a href="{%url 'homepage:blogV' i.id%}">
+                                    <button class="btn-solid-sm" >      
+                                        {{i.title|truncatewords:5}}
+                                    </button>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        <div class="commentsection mt-4">
+                            <form action="" method="post">
+                                <input class="form-control" type="text" name="comment" placeholder="Add your Queries Here!!">
+                                {% csrf_token %}
+                                <div class="pt-2">
+                                    <button class="btn-solid-sm" style="background-color:#6168ff; border: none;">
+                                        Add Queries
+                                    </button>
+                                </div>
+                            </form>
+                           
+                            <hr>
+                            
+                            {% if comment %}
+                                <h6>Queries...</h6>
+                            {% endif %}
+                                
+                            
+                            {% for i in comment  %}
+                               <div class="commentbox mt-2 p-2">
+                                 <i class="fa fa-comment"></i>
+                                 <span class="text-dark">{{i.comment}}</span>
+                               </div>
+                            {% endfor %}
+                                
+                        </div>
+
+                       
+                    </div>
+                   
+                 
+                        
+                </div>
+
             </div>
           
            

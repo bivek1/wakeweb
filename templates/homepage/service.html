@@ -20,7 +20,7 @@
                     {% for i in service  %}
                     <!-- Card -->
                     <a href="{%url 'homepage:serviceDetails' i.id%}">
-                        <div class="card me-4">
+                        <div class="card me-4" style="height:auto;">
                             <div class="text-center">
                                 <img src="{{i.image.url}}" alt="{{i.name}}" srcset="" style="height: 140px; width:140px;">
                             </div>
